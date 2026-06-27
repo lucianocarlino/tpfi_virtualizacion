@@ -1,0 +1,72 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{ perfil.nombre }} {{ perfil.apellido }} — Blog{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero { display: grid; grid-template-columns: 1fr auto; gap: 3rem; align-items: center; padding-bottom: 3rem; margin-bottom: 3rem; border-bottom: 1px solid var(--border); }
+    .hero-info h1 { font-family: var(--font-display); font-size: 2.8rem; line-height: 1.1; margin-bottom: 0.5rem; }
+    .hero-info h1 span { color: var(--accent); }
+    .hero-meta { display: flex; flex-direction: column; gap: 0.3rem; margin: 1.2rem 0; }
+    .hero-meta span { font-size: 0.85rem; color: var(--muted); }
+    .hero-meta strong { color: var(--text); }
+    .hero-bio { font-size: 0.95rem; color: var(--muted); max-width: 500px; line-height: 1.8; }
+    .avatar { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); }
+    .avatar-placeholder { width: 140px; height: 140px; border-radius: 50%; background: var(--surface); border: 3px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 2rem; }
+    .pdf-btn { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.2rem; background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 0.5rem 1.2rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
+    .pdf-btn:hover { background: var(--accent); color: #0f0f0f; }
+    .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+    .posts { display: flex; flex-direction: column; gap: 0; }
+    .post-item { display: grid; grid-template-columns: 80px 1fr; gap: 1.5rem; align-items: start; padding: 1.5rem 0; border-bottom: 1px solid var(--border); text-decoration: none; color: inherit; transition: opacity 0.2s; }
+    .post-item:hover { opacity: 0.7; }
+    .post-date { font-size: 0.75rem; color: var(--muted); padding-top: 0.3rem; line-height: 1.4; }
+    .post-title { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.3rem; }
+    .post-excerpt { font-size: 0.85rem; color: var(--muted); }
+    .empty { color: var(--muted); font-size: 0.9rem; padding: 2rem 0; }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if perfil %}
+<section class="hero">
+    <div class="hero-info">
+        <span class="tag">Blog Personal</span>
+        <h1>{{ perfil.nombre }}<br><span>{{ perfil.apellido }}</span></h1>
+        <div class="hero-meta">
+            <span><strong>Legajo:</strong> {{ perfil.legajo }}</span>
+            <span><strong>Carrera:</strong> {{ perfil.carrera }}</span>
+            <span><strong>Email:</strong> {{ perfil.email }}</span>
+        </div>
+        <p class="hero-bio">{{ perfil.descripcion }}</p>
+        {% if perfil.pdf_informe %}
+        <a href="{{ perfil.pdf_informe.url }}" target="_blank" class="pdf-btn">↓ Descargar Informe PDF</a>
+        {% endif %}
+    </div>
+    <div>
+        {% if perfil.foto %}
+        <img src="{{ perfil.foto.url }}" alt="{{ perfil.nombre }}" class="avatar">
+        {% else %}
+        <div class="avatar-placeholder">👤</div>
+        {% endif %}
+    </div>
+</section>
+{% endif %}
+
+<p class="section-label">Publicaciones</p>
+<div class="posts">
+    {% if posts %}
+        {% for post in posts %}
+        <a href="/43708688/post/{{ post.pk }}/" class="post-item">
+            <div class="post-date">
+                {{ post.fecha|date:"d M" }}<br>{{ post.fecha|date:"Y" }}
+            </div>
+            <div>
+                <div class="post-title">{{ post.titulo }}</div>
+                <div class="post-excerpt">{{ post.contenido|truncatewords:20 }}</div>
+            </div>
+        </a>
+        {% endfor %}
+    {% else %}
+        <p class="empty">Todavía no hay publicaciones. Agregá una desde el <a href="/43708688/admin/" style="color:var(--accent)">panel de administración</a>.</p>
+    {% endif %}
+</div>
+{% endblock %}
