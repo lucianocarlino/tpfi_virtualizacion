@@ -30,3 +30,18 @@ class Post(models.Model):
 
     def __str__(self):
         return self.titulo
+
+class LoginIntento(models.Model):
+    usuario = models.CharField(max_length=150)
+    exitoso = models.BooleanField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    ip = models.GenericIPAddressField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['-timestamp']
+        verbose_name = 'Intento de login'
+        verbose_name_plural = 'Intentos de login'
+
+    def __str__(self):
+        estado = 'exitoso' if self.exitoso else 'fallido'
+        return f"{self.usuario} — {estado} — {self.timestamp}"
