@@ -2,7 +2,7 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-cambia-esta-clave-en-produccion-abc123xyz'
+SECRET_KEY = 'tpfivirtualizacion5432'
 
 DEBUG = True
 
@@ -52,9 +52,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'blogdb',
-        'USER': 'bloguser',
-        'PASSWORD': 'blogpassword',
-        'HOST': '192.168.1.X',  # <-- IP del contenedor PostgreSQL
+        'USER': 'lucianodev',
+        'PASSWORD': '#SuperP4ssw0rd',
+        'HOST': '172.16.90.199',
         'PORT': '5432',
     }
 }
@@ -79,5 +79,4 @@ MEDIA_URL = '/43708688/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-FORCE_SCRIPT_NAME = '/43708688'
+CSRF_TRUSTED_ORIGINS = ['https://nap.frt.utn.edu.ar']
