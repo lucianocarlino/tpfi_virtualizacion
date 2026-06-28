@@ -17,3 +17,12 @@ def index(request):
         'posts': posts,
         'foto_base64': foto_base64,
     })
+
+
+def post_detalle(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    perfil = Perfil.objects.first()
+    return render(request, 'blog/post.html', {
+        'post': post,
+        'perfil': perfil,
+    })
