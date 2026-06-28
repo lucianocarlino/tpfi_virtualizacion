@@ -8,6 +8,10 @@ def index(request):
     posts = Post.objects.all()
 
     foto_base64 = None
+    pdf_base64 = None
+    if perfil and perfil.pdf_informe:
+        with open(perfil.pdf_informe.path, 'rb') as f:
+            pdf_base64 = base64.b64encode(f.read()).decode('utf-8')
     if perfil and perfil.foto:
         with open(perfil.foto.path, 'rb') as f:
             foto_base64 = base64.b64encode(f.read()).decode('utf-8')
@@ -16,6 +20,7 @@ def index(request):
         'perfil': perfil,
         'posts': posts,
         'foto_base64': foto_base64,
+        'pdf_base64': pdf_base64,
     })
 
 

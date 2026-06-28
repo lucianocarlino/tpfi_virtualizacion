@@ -37,8 +37,8 @@
             <span><strong>Email:</strong> {{ perfil.email }}</span>
         </div>
         <p class="hero-bio">{{ perfil.descripcion }}</p>
-        {% if perfil.pdf_informe %}
-        <a href="{{ perfil.pdf_informe.url }}" target="_blank" class="pdf-btn">↓ Descargar Informe PDF</a>
+        {% if pdf_base64 %}
+        <a href="data:application/pdf;base64,{{ pdf_base64 }}" download="informe.pdf" class="pdf-btn">↓ Descargar Informe PDF</a>
         {% endif %}
     </div>
     <div>

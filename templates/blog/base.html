@@ -34,7 +34,7 @@
         </a>
         <nav>
             <a href="/43708688/">Inicio</a>
-            {% if perfil and perfil.pdf_informe %}<a href="{{ perfil.pdf_informe.url }}" target="_blank">Informe PDF</a>{% endif %}
+            {% if pdf_base64 %}<a href="data:application/pdf;base64,{{ pdf_base64 }}" download="informe.pdf">Informe PDF</a>{% endif %}
             <a href="/43708688/admin/">Admin</a>
         </nav>
     </header>
