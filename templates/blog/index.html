@@ -42,8 +42,8 @@
         {% endif %}
     </div>
     <div>
-        {% if perfil.foto %}
-        <img src="{{ perfil.foto.url }}" alt="{{ perfil.nombre }}" class="avatar">
+        {% if foto_base64 %}
+        <img src="data:image/jpeg;base64,{{ foto_base64 }}" alt="{{ perfil.nombre }}" class="avatar">
         {% else %}
         <div class="avatar-placeholder">👤</div>
         {% endif %}
