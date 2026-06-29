@@ -1,0 +1,40 @@
+{% extends 'blog/adminblog_base.html' %}
+{% block title %}Intentos de Login — Admin Blog{% endblock %}
+
+{% block content %}
+<div class="page-title">Intentos de Login</div>
+
+<div class="card">
+    <div class="card-title">Historial de accesos</div>
+    {% if intentos %}
+    <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+        <thead>
+            <tr style="color:var(--muted); text-align:left; border-bottom:1px solid var(--border);">
+                <th style="padding:0.6rem 0.4rem;">Usuario</th>
+                <th style="padding:0.6rem 0.4rem;">Estado</th>
+                <th style="padding:0.6rem 0.4rem;">IP</th>
+                <th style="padding:0.6rem 0.4rem;">Fecha y hora</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for intento in intentos %}
+            <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.7rem 0.4rem;">{{ intento.usuario }}</td>
+                <td style="padding:0.7rem 0.4rem;">
+                    {% if intento.exitoso %}
+                    <span style="color:#6fcf97; font-weight:600;">Exitoso</span>
+                    {% else %}
+                    <span style="color:var(--danger); font-weight:600;">Fallido</span>
+                    {% endif %}
+                </td>
+                <td style="padding:0.7rem 0.4rem; color:var(--muted);">{{ intento.ip }}</td>
+                <td style="padding:0.7rem 0.4rem; color:var(--muted);">{{ intento.timestamp|date:"d/m/Y H:i:s" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="color:var(--muted); font-size:0.9rem;">No hay intentos de login registrados.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin Blog{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #0f0f0f; --surface: #1a1a1a; --surface2: #222;
+            --border: #2a2a2a; --accent: #c8f542; --text: #e8e8e8;
+            --muted: #888; --danger: #ff5f5f; --font: 'Inter', sans-serif;
+        }
+        body { background: var(--bg); color: var(--text); font-family: var(--font); min-height: 100vh; display: flex; }
+        .sidebar { width: 220px; background: var(--surface); border-right: 1px solid var(--border); padding: 2rem 1rem; display: flex; flex-direction: column; gap: 0.3rem; position: fixed; height: 100vh; }
+        .sidebar-brand { font-size: 1rem; font-weight: 600; color: var(--accent); padding: 0.5rem 0.8rem; margin-bottom: 1rem; }
+        .sidebar a { display: block; padding: 0.6rem 0.8rem; border-radius: 6px; text-decoration: none; color: var(--muted); font-size: 0.85rem; transition: all 0.2s; }
+        .sidebar a:hover, .sidebar a.active { background: var(--surface2); color: var(--text); }
+        .sidebar .divider { border: none; border-top: 1px solid var(--border); margin: 0.8rem 0; }
+        .sidebar a.danger { color: var(--danger); }
+        .content { margin-left: 220px; padding: 2.5rem; width: 100%; }
+        .page-title { font-size: 1.4rem; font-weight: 600; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; }
+        .card-title { font-size: 0.85rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.2rem; }
+        label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.4rem; margin-top: 1rem; }
+        input[type=text], input[type=email], input[type=file], textarea {
+            width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 6px;
+            padding: 0.6rem 0.8rem; color: var(--text); font-family: var(--font); font-size: 0.9rem;
+            transition: border 0.2s;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent); }
+        textarea { resize: vertical; }
+        .btn { display: inline-block; padding: 0.6rem 1.4rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; }
+        .btn-primary { background: var(--accent); color: #0f0f0f; }
+        .btn-primary:hover { opacity: 0.85; }
+        .btn-danger { background: transparent; border: 1px solid var(--danger); color: var(--danger); }
+        .btn-danger:hover { background: var(--danger); color: #fff; }
+        .mt { margin-top: 1.2rem; }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-brand">Panel de Blog</div>
+        <a href="/43708688/adminblog/posts/" {% if request.path == '/43708688/adminblog/posts/' %}class="active"{% endif %}>Posts</a>
+        <a href="/43708688/adminblog/perfil/" {% if request.path == '/43708688/adminblog/perfil/' %}class="active"{% endif %}>Perfil</a>
+        <a href="/43708688/adminblog/intentos/" {% if request.path == '/43708688/adminblog/intentos/' %}class="active"{% endif %}>Intentos de Login</a>
+        <hr class="divider">
+        <a href="/43708688/admin/">Admin Django</a>
+        <a href="/43708688/">Ver Blog</a>
+    </aside>
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

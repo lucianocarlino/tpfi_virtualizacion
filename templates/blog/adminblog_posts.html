@@ -1,0 +1,48 @@
+{% extends 'blog/adminblog_base.html' %}
+{% block title %}Posts — Admin Blog{% endblock %}
+
+{% block content %}
+<div class="page-title">Posts</div>
+
+<div class="card">
+    <div class="card-title">Nuevo Post</div>
+    <form method="post">
+        {% csrf_token %}
+        <label>Título</label>
+        {{ form.titulo }}
+        <label>Contenido</label>
+        {{ form.contenido }}
+        <div class="mt">
+            <button type="submit" class="btn btn-primary">Publicar</button>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    <div class="card-title">Publicaciones existentes</div>
+    {% if posts %}
+    <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+        <thead>
+            <tr style="color:var(--muted); text-align:left; border-bottom:1px solid var(--border);">
+                <th style="padding:0.6rem 0.4rem;">Título</th>
+                <th style="padding:0.6rem 0.4rem;">Fecha</th>
+                <th style="padding:0.6rem 0.4rem;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+            <tr style="border-bottom:1px solid var(--border);">
+                <td style="padding:0.7rem 0.4rem;">{{ post.titulo }}</td>
+                <td style="padding:0.7rem 0.4rem; color:var(--muted);">{{ post.fecha|date:"d/m/Y" }}</td>
+                <td style="padding:0.7rem 0.4rem;">
+                    <a href="/43708688/admin/blog/post/{{ post.pk }}/change/" style="color:var(--accent); font-size:0.8rem;">Editar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="color:var(--muted); font-size:0.9rem;">No hay posts publicados todavía.</p>
+    {% endif %}
+</div>
+{% endblock %}

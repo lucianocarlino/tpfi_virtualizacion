@@ -1,0 +1,38 @@
+{% extends 'blog/adminblog_base.html' %}
+{% block title %}Perfil — Admin Blog{% endblock %}
+
+{% block content %}
+<div class="page-title">Perfil Personal</div>
+
+<div class="card">
+    <div class="card-title">Datos del perfil</div>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Nombre</label>
+        {{ form.nombre }}
+        <label>Apellido</label>
+        {{ form.apellido }}
+        <label>Legajo</label>
+        {{ form.legajo }}
+        <label>Carrera</label>
+        {{ form.carrera }}
+        <label>Email</label>
+        {{ form.email }}
+        <label>Descripción</label>
+        {{ form.descripcion }}
+        <label>Foto de perfil</label>
+        {{ form.foto }}
+        {% if perfil and perfil.foto %}
+        <p style="font-size:0.75rem; color:var(--muted); margin-top:0.4rem;">Foto actual: {{ perfil.foto.name }}</p>
+        {% endif %}
+        <label>Informe PDF</label>
+        {{ form.pdf_informe }}
+        {% if perfil and perfil.pdf_informe %}
+        <p style="font-size:0.75rem; color:var(--muted); margin-top:0.4rem;">PDF actual: {{ perfil.pdf_informe.name }}</p>
+        {% endif %}
+        <div class="mt">
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
